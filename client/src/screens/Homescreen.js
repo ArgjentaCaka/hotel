@@ -1,32 +1,48 @@
-import React ,{useState , useEffect} from 'react'
-import axios from "axios";
-function Homescreen({someId}) {
-    const [rooms, setrooms] = useState();
-    
-    useEffect (()=> {
-      async function fetchData (){
-        try {
-            const response = await axios.get('/api/rooms/getallrooms');
-            setrooms (response.data);
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Room from '../components/Room';
 
-        } catch (error) {
-            console.log(error);
-        }
+function Homescreen() {
+  const [rooms, setRooms] = useState([]);
+  const [loading, setloading] = useState();
+  const [error, seterror] = useState()
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setloading(true)
+        const response = await axios.get('http://localhost:5000/api/rooms/getallrooms');
+        setRooms(response.data); // Update state with room data from API
+        setloading(false);
+      } catch (error) {
+        setloading(true)
+        console.error('Error fetching rooms:', error);
+        setloading(false)
       }
-        
-        fetchData();
+    }
 
-        // Pastrimi (cleanup) nëse është e nevojshme (kjo mund të jetë opsionale)
-        return () => {
-          // Mund të bëni pastrimin këtu nëse keni nevojë për ndonjë gjë
-        };
-      }, [someId]);
+    fetchData();
+  }, []); // Empty array means this will run once when the component mounts
+
   return (
-    <div><h1>Home screen </h1>
-     <h1>There are {Array.isArray(rooms) ? rooms.length : 0} rooms</h1>
-    <pre>{JSON.stringify(rooms, null, 2)}</pre>
+    <div className='container'>
+      <div className="row justify-content-center mt-5">
+        {loading ? (
+          <h1>Loading.....</h1>
+        ) : error ? (
+        <h1>Error</h1>
+      ) : (
+        rooms.map((room )=> {
+          return <div className="col-md-9 mt-2">
+            <Room room={room}/>
+             </div>
+        })
+        )}
+      </div>
+
+
     </div>
   );
 }
 
-export default Homescreen
+export default Homescreen;

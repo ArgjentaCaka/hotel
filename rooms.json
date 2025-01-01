@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Deluxe Room",
+        "maxCount": 3,
+        "phonenumber": 1234567890,
+        "rentperday": 1500,
+        "imageurls": ["https://images.pexels.com/photos/27604116/pexels-photo-27604116/free-photo-of-dania-city-villa-in-sulaymaniyah-city.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/27604117/pexels-photo-27604117/free-photo-of-dania-city-villa-in-sulaymaniyah-city.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" ,
+        "https://images.pexels.com/photos/11295861/pexels-photo-11295861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"],
+        "currentbooking": [],
+        "type": "Luxury",
+        "description": "A large and luxurious room with all modern amenities."
+    },
+    {
+        "name": "Standard Room",
+        "maxCount": 2,
+        "phonenumber": 9876543210,
+        "rentperday": 900,
+        "imageurls": ["https://miro.medium.com/v2/resize:fit:1100/format:webp/1*X1K4Zi_mTg94imnWW-zfUw.jpeg" ,
+        "https://media-cdn.tripadvisor.com/media/photo-s/08/2d/f6/e5/photo0jpg.jpg" ,
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI6ZSpCcMnLXDN1vqyOY5-EQ_RC0dfmANk9l2DP2Rsvlijsr7Y6H3jpEDnn1IvfC0oK2E&usqp=CAU"],
+        "currentbooking": [],
+        "type": "Standard",
+        "description": "Standard room for a comfortable stay."
+    },
+    {
+        "name": "Family Suite",
+        "maxCount": 5,
+        "phonenumber": 1122334455,
+        "rentperday": 2000,
+        "imageurls": ["https://images.pexels.com/photos/7533759/pexels-photo-7533759.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", 
+        "https://images.pexels.com/photos/6585749/pexels-photo-6585749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" ,
+        "https://images.pexels.com/photos/6585768/pexels-photo-6585768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1v"],
+        "currentbooking": [],
+        "type": "Suite",
+        "description": "A large suite for the whole family."
+    },
+    {
+        "name": "Executive Room",
+        "maxCount": 2,
+        "phonenumber": 1122334455,
+        "rentperday": 1950,
+        "imageurls": ["https://images.pexels.com/photos/3201762/pexels-photo-3201762.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", 
+        "https://images.pexels.com/photos/3201761/pexels-photo-3201761.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" ,
+        "https://images.pexels.com/photos/3201766/pexels-photo-3201766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"],
+        "currentbooking": [],
+        "type": "Executive",
+        "description": "An Executive Room tailored to business travelers and guests seeking a higher level of comfort and convenience.."
+    },
+    {
+        "name": "Grand Room",
+        "maxCount": 3,
+        "phonenumber": 1122334455,
+        "rentperday": 2200,
+        "imageurls": ["https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", 
+        "https://images.pexels.com/photos/271619/pexels-photo-271619.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" ,
+        "https://images.pexels.com/photos/6636253/pexels-photo-6636253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"],
+        "currentbooking": [],
+        "type": "Grand",
+        "description": "A Grand Room Offer guests a more spacious and luxurious experience compared to standard accommodations.."
+    }
+]
