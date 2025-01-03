@@ -1,19 +1,4 @@
-// const express = require("express");
-// const cors = require('cors'); // Përdorimi i cors
-// const app = express();
-// const Room = require('./models/room');
-// const dbConfig = require('./db');
-// const roomsRoute = require('./routes/roomsRoute');
 
-// // Lejo kërkesat nga frontend (http://localhost:3000)
-// app.use(cors());
-
-// // Rrugët për dhomat
-// app.use('/api/rooms', roomsRoute);
-
-// const port = process.env.PORT || 5000;
-
-// app.listen(port, () => console.log(`Server running on port ${port}`));
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -22,6 +7,7 @@ const cors = require('cors');
 // Initialize Express app
 const app = express();
 const port = 5000; // Set this to 5000 for consistency with your React app
+
 
 // Middleware to handle CORS
 app.use(cors());

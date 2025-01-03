@@ -25,7 +25,7 @@ function Homescreen() {
   }, []); // Empty array means this will run once when the component mounts
 
   return (
-    <div className='container'>
+    <div className='container' >
       <div className="row justify-content-center mt-5">
         {loading ? (
           <h1>Loading.....</h1>
@@ -33,7 +33,7 @@ function Homescreen() {
         <h1>Error</h1>
       ) : (
         rooms.map((room )=> {
-          return <div className="col-md-9 mt-2">
+          return <div className="col-md-9 mt-2" key={room.id}>
             <Room room={room}/>
              </div>
         })
