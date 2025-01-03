@@ -1,13 +1,10 @@
-
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const mongoose = require('mongoose');
 const cors = require('cors');
 
 // Initialize Express app
 const app = express();
 const port = 5000; // Set this to 5000 for consistency with your React app
-
 
 // Middleware to handle CORS
 app.use(cors());
@@ -15,24 +12,33 @@ app.use(cors());
 // Body parsing middleware for POST requests
 app.use(express.json());
 
-// Path to rooms JSON file
-const roomsFilePath = path.join(__dirname, 'rooms.json');
+// MongoDB connection URI (update this with your actual MongoDB URI)
+const mongoURI = 'mongodb+srv://elzakrasniqi2:Mongo123.@cluster0.mwxtd.mongodb.net/mern-rooms'; // This is for local MongoDB, modify for remote if needed
 
-// Helper function to read rooms data from the JSON file
-function readRoomsFromFile() {
-    try {
-        const data = fs.readFileSync(roomsFilePath, 'utf8');
-        return JSON.parse(data);  // Convert the JSON string into an array of rooms
-    } catch (err) {
-        console.error('Error reading rooms file:', err);
-        return [];
-    }
-}
+// Connect to MongoDB using Mongoose
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.log('Error connecting to MongoDB:', err));
+
+// Define a Schema and Model for the rooms
+const roomSchema = new mongoose.Schema({
+    name: String,
+    description: String,
+    price: Number
+});
+
+const Room = mongoose.model('Room', roomSchema);
 
 // Serve the rooms data via an API endpoint
-app.get('/api/rooms/getallrooms', (req, res) => {
-    const rooms = readRoomsFromFile();  // Read rooms from rooms.json file
-    res.json(rooms);  // Send the rooms as a JSON response
+app.get('/api/rooms/getallrooms', async (req, res) => {
+    try {
+        // Retrieve all rooms from MongoDB
+        const rooms = await Room.find();  // Mongoose will automatically query the database
+        res.json(rooms);  // Send the rooms as a JSON response
+    } catch (err) {
+        console.error('Error fetching rooms from MongoDB:', err);
+        res.status(500).json({ error: 'Error fetching rooms from MongoDB' });
+    }
 });
 
 // Start the server

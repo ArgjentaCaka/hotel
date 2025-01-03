@@ -33,7 +33,7 @@ function Homescreen() {
         <h1>Error</h1>
       ) : (
         rooms.map((room )=> {
-          return <div className="col-md-9 mt-2" key={room.id}>
+          return <div className="col-md-9 mt-2 " key={room._id}>
             <Room room={room}/>
              </div>
         })
