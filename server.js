@@ -40,6 +40,20 @@ app.get('/api/rooms/getallrooms', async (req, res) => {
         res.status(500).json({ error: 'Error fetching rooms from MongoDB' });
     }
 });
+app.post('/api/rooms/getroombyid', async (req, res) => {
+    const roomid = req.body.roomid;  // Extract the roomid from the request body
+    try {
+        const room = await Room.findOne({ _id: roomid }); // Find room by ID
+        if (room) {
+            res.json(room);  // If found, send the room data back
+        } else {
+            res.status(404).json({ message: "Room not found" });  // If room not found, send error
+        }
+    } catch (err) {
+        console.error('Error fetching room by ID:', err);
+        res.status(500).json({ error: 'Error fetching room by ID from MongoDB' });  // Send error on failure
+    }
+});
 
 // Start the server
 app.listen(port, () => {

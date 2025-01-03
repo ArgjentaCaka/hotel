@@ -20,7 +20,7 @@ function Room({ room }) {
                     <p>Phone Number : {room.phonenumber}</p>
                     <p>Type : {room.type}</p></b>
                 <div style={{ float: 'right' }}>
-                    <Link to={'/book/${room._id}'}>
+                <Link to={`/book/${room._id}`}>
                     <button className='btn btn-primary'>
                      Book Now
                     </button>
