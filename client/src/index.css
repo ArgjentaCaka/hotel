@@ -74,4 +74,16 @@ h1{
   100% { transform: rotate(360deg); }
 }
 
+input{
+  box-shadow: none !important;
+  margin-top: 10px;
+  border: 1px solid black !important;
+}
+h2{
+  font-size: 30px !important;
+  padding: 10px;
+  font-weight: bold !important;
+  text-align: center;
+}
+
 
