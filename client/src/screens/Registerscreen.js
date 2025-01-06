@@ -16,7 +16,7 @@ function Registerscreen() {
                 cpassword
             }
             try{
-                const result = await axios.post('http://localhost:3000/api/users/register', user);
+                const result = await axios.post('/api/users/register', user);
 
             }catch(error) {
                 console.log(error)
