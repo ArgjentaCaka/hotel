@@ -85,5 +85,9 @@ h2{
   font-weight: bold !important;
   text-align: center;
 }
+.btn btn-secondary dropdown-toggle{
+  border: 0px solid black !important;
+  
+}
 
 
