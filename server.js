@@ -7,7 +7,7 @@ const userRoute = require('./routes/usersRoute')
 const app = express();
 const port = 5000; // Set this to 5000 for consistency with your React app
 
-app.use('/api/users', userRoute)
+app.use('/api/users', userRoute);
 
 // Middleware to handle CORS
 app.use(cors());
@@ -57,6 +57,9 @@ app.post('/api/rooms/getroombyid', async (req, res) => {
         res.status(500).json({ error: 'Error fetching room by ID from MongoDB' });  // Send error on failure
     }
 });
+
+
+
 
 
 // Start the server
