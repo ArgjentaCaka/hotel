@@ -1,44 +1,67 @@
-const express = require("express");
+const express = require('express');
+const bcrypt = require('bcryptjs'); // for hashing passwords
+const User = require('../models/user'); // Import the User model
+
 const router = express.Router();
-const User = require("../models/user");
 
-const newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-  });
-  
-  newUser.save()
-    .then(() => res.status(200).send('User registered'))
-    .catch(err => res.status(400).send('Error saving user: ' + err));
+// Registration route
+router.post('/register', async (req, res) => {
+    const { name, email, password } = req.body;
 
-router.post("/register", async (req, res) => {
-    const newuser = new User({name: req.body.name, email: req.body.email , password: req.body.password });
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+        return res.status(400).json({ message: 'User already exists' });
+    }
+
     try {
-        const user = await newuser.save();
-        res.send('User registered successfully');
+        // Hash the password before saving it
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create a new user
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+        });
+
+        // Save the user to the database
+        await newUser.save();
+
+        // Respond with the user's data, without the password
+        res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                name: newUser.name,
+                email: newUser.email,
+            },
+        });
     } catch (error) {
-        return res.status(400).json({ error });
+        console.error('Error registering user:', error);
+        res.status(500).json({ message: 'Error registering user' });
     }
 });
-router.post("/login" ,  async(req, res) => {
-    const {email , password} = req.body;
-    try{
-        const user = await User.findOne({ email: email, password: password});
-        if(user) {
-            const temp = {name : user.name, 
-            email : user.email, 
-            isAdmin : user.isAdmin,
-            _id : user._id
-        }
-        res.send(temp);
-        }
-        else{
-            return res.status(404).json({message:'Login failed'});
-        }
-    } catch (error) {
-        return res.status(404).json({error});
+// Login user
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    res.status(200).json({ message: 'Login successful', user });
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).json({ message: 'Server error during login' });
+  }
 });
 
 module.exports = router;

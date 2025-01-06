@@ -26,7 +26,7 @@ function Registerscreen() {
             }
             try{
                 setLoading(true);
-                const result = (await axios.post('/api/users/register', user)).data;
+                const result = (await axios.post('http://localhost:5000/api/users/register', user)).data;
                 setLoading(false);
                 setsuccess(true);
                 setname('')
