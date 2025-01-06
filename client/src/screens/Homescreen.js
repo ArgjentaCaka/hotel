@@ -12,14 +12,14 @@ function Homescreen() {
   useEffect(() => {
     async function fetchData() {
       try {
-        setloading(true)
+        setloading(true);
         const response = await axios.get('http://localhost:5000/api/rooms/getallrooms');
-        setRooms(response.data); // Update state with room data from API
-        setloading(false);
+        setRooms(response.data.rooms); // Update state with room data from API
+        setloading(false);  // Set loading to false after successful response
       } catch (error) {
-        setloading(true)
+        setloading(false);  // Set loading to false after error as well
+        seterror('Error fetching rooms'); // You can also add an error message
         console.error('Error fetching rooms:', error);
-        setloading(false)
       }
     }
 
