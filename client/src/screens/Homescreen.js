@@ -25,13 +25,13 @@ function Homescreen() {
 
     fetchData();
   }, []); // Empty array means this will run once when the component mounts
-
+  
   return (
     <div className='container' >
       <div className="row justify-content-center mt-5">
         {loading ? (
           <Loader/>
-        ) : rooms.length >1 ? (
+        ) : rooms.length > 1 ? (
 
           rooms.map((room )=> {
             return <div className="col-md-9 mt-2 " key={room._id}>
