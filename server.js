@@ -35,23 +35,20 @@ app.get('/api/rooms/getallrooms', async (req, res) => {
   
   // `POST` route for creating a new room
   app.post('/api/rooms/getroombyid', async (req, res) => {
-    const { name, description, price, imageUrl } = req.body;
-  
+    const roomid = req.body.roomid;  // Extract the roomid from the request body
     try {
-      const newRoom = new Room({
-        name,
-        description,
-        price,
-        imageUrl,
-      });
-  
-      await newRoom.save(); // Ruajmë dhomën në bazën e të dhënave
-      res.status(201).json({ message: 'Room created successfully', room: newRoom });
+        const room = await Room.findOne({ _id: roomid }); // Find room by ID
+        if (room) {
+            res.json(room);  // If found, send the room data back
+        } else {
+            res.status(404).json({ message: "Room not found" });  // If room not found, send error
+        }
     } catch (err) {
-      console.error('Error creating room:', err);
-      res.status(500).json({ message: 'Error creating room' });
+        console.error('Error fetching room by ID:', err);
+        res.status(500).json({ error: 'Error fetching room by ID from MongoDB' });  // Send error on failure
     }
-  });
+});
+
   
   // Start the server
   app.listen(port, () => {
