@@ -12,8 +12,8 @@ router.get("/getallrooms", async(req, res) => {
     }
 });
 
-router.get('/getroombyid/:roomid', async (req, res) => {
-    const roomid = req.params.roomid; // Përdorim roomid nga URL
+router.post('/getroombyid', async (req, res) => {
+    const { roomid } = req.body; // Përdorim roomid nga trupi i kërkesës (body)
     try {
         const room = await Rooms.findOne({ _id: roomid });
         if (room) {
