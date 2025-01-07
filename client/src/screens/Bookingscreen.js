@@ -21,7 +21,7 @@ function Bookingscreen() {
         const fetchRoomData = async () => {
             try {
                 setLoading(true); // Vendosni ngarkimin në true
-                const response = await axios.post('http://localhost:5000/api/rooms/getroombyid', { roomid });
+                const response = await axios.get(`http://localhost:5000/api/rooms/getroombyid/${roomid}`);
 
                 // Logimi i të dhënave të dhomës
                 console.log(response.data);

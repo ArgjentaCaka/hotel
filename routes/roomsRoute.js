@@ -12,12 +12,12 @@ router.get("/getallrooms", async(req, res) => {
     }
 });
 
-router.post('/api/rooms/getroombyid', async (req, res) => {
-    const roomid = req.body.roomid;  // Ensure roomid is sent in the request body
+router.get('/getroombyid/:roomid', async (req, res) => {
+    const roomid = req.params.roomid; // Përdorim roomid nga URL
     try {
         const room = await Rooms.findOne({ _id: roomid });
         if (room) {
-            res.send(room);  // Send room data back if found
+            res.send(room);
         } else {
             res.status(404).json({ message: "Room not found" });
         }
@@ -25,6 +25,7 @@ router.post('/api/rooms/getroombyid', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
 
 
 

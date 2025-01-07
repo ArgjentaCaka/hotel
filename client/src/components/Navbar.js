@@ -1,11 +1,14 @@
 import React from 'react'
 
 function Navbar() {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    function logout()
-    {
-        localStorage.removeItem ('currentUser')
-    window.location.href='/login'}
+    // Lexo të dhënat nga localStorage dhe merr objektin 'user'
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const user = currentUser ? currentUser.user : null;  // Pjesa e 'user' është brenda objekti 'currentUser'
+
+    function logout() {
+        localStorage.removeItem('currentUser');
+        window.location.href = '/login';
+    }
     return (
         <div>
             <nav className="navbar navbar-expand-lg">
