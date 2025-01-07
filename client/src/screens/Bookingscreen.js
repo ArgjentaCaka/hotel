@@ -12,6 +12,7 @@ function Bookingscreen() {
     const [error, setError] = useState(false);
     const [room, setRoom] = useState(null);
     const [totaldays, setTotalDays] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0); // Initializing totalAmount
 
     // Ensure that fromdate and todate are valid moment objects
     const fromdate = moment(paramFromDate, 'DD-MM-YYYY');
@@ -48,6 +49,14 @@ function Bookingscreen() {
         fetchRoomData();
     }, [roomid]);
 
+    // Recalculate totalAmount once room and totaldays are available
+    useEffect(() => {
+        if (room && totaldays > 0) {
+            const amount = room.rentperday * totaldays;
+            setTotalAmount(amount);
+        }
+    }, [room, totaldays]); // Runs whenever room or totaldays changes
+
     return (
         <div className='m-5'>
             {loading ? (
@@ -78,7 +87,7 @@ function Bookingscreen() {
                                     <hr />
                                     <p>Total Days: {totaldays}</p>
                                     <p>Rent Per Day : {room.rentperday}</p>
-                                    <p>Total Amount: {room.rentperday * totaldays}</p>
+                                    <p>Total Amount: {totalAmount}</p> {/* Using the calculated totalAmount */}
                                 </b>
                             </div>
 
@@ -96,3 +105,4 @@ function Bookingscreen() {
 }
 
 export default Bookingscreen;
+
