@@ -1,57 +1,63 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import Oval from 'react-loader-spinner';  // Importoni Oval si default nga react-loader-spinner
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-
-
-
-
+import moment from 'moment';
 
 function Bookingscreen() {
-    const { roomid } = useParams(); // Përdorimi i useParams për të marrë roomid nga URL
+    const { roomid, fromdate: paramFromDate, todate: paramToDate } = useParams(); // Destructure from useParams
 
-    const [loading, setLoading] = useState(true);  // Variablat për ngarkim dhe gabime
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [room, setRoom] = useState(null);
+    const [totaldays, setTotalDays] = useState(0);
 
-    // Funksioni për të marrë të dhënat për dhomën
+    // Ensure that fromdate and todate are valid moment objects
+    const fromdate = moment(paramFromDate, 'DD-MM-YYYY');
+    const todate = moment(paramToDate, 'DD-MM-YYYY');
+
+    // Recalculate totaldays whenever fromdate or todate changes
+    useEffect(() => {
+        if (fromdate.isValid() && todate.isValid()) {
+            const days = moment.duration(todate.diff(fromdate)).asDays() + 1; // Add 1 to include both start and end days
+            setTotalDays(days);
+        } else {
+            console.error('Invalid date format:', paramFromDate, paramToDate);
+        }
+    }, [fromdate, todate]); // Dependencies ensure it runs only when dates change
+
+    // Fetch room data
     useEffect(() => {
         const fetchRoomData = async () => {
             try {
-                setLoading(true); // Vendosni ngarkimin në true
+                setLoading(true);
                 const response = await axios.post('http://localhost:5000/api/rooms/getroombyid', {
-                    roomid: roomid  // Dërgojmë roomid në trupin e kërkesës
+                    roomid: roomid
                 });
-                
 
-                // Logimi i të dhënave të dhomës
-                console.log(response.data);
-
-                setRoom(response.data); // Vendosni të dhënat e dhomës
-                setLoading(false); // Përdorni setLoading për ta bërë false kur ngarkimi është përfunduar
+                setRoom(response.data);
+                setLoading(false);
             } catch (error) {
-                setLoading(false); // Në rast gabimi, e vendosim ngarkimin në false
-                setError(true); // Vendosni gabimin në true
+                setLoading(false);
+                setError(true);
                 console.error('Error fetching room:', error);
             }
         };
 
-        fetchRoomData();  // Thirrja e funksionit
-    }, [roomid]);  // Efekti do të rifillojë kur `roomid` të ndryshojë
+        fetchRoomData();
+    }, [roomid]);
 
     return (
         <div className='m-5'>
-            {loading ? (<Loader />
-
-
-            ) : room ?  (
+            {loading ? (
+                <Loader />
+            ) : room ? (
                 <div>
                     <div className="row justify-content-center mt-5 bs">
                         <div className="col-md-5">
                             <h1>{room.name}</h1>
-                            {room.imageurls?.[0] && <img src={room.imageurls[0]} alt={room.name} className="bigimg" />} {/* Siguroni që të shtoni atributin alt */}
+                            {room.imageurls?.[0] && <img src={room.imageurls[0]} alt={room.name} className="bigimg" />}
                         </div>
 
                         <div className="col-md-5" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginTop: '50px' }}>
@@ -60,8 +66,8 @@ function Bookingscreen() {
                                 <hr />
                                 <b>
                                     <p>Name :</p>
-                                    <p>From Date :</p>
-                                    <p>To Date :</p>
+                                    <p>From Date : {fromdate.format('DD-MM-YYYY')}</p>
+                                    <p>To Date : {todate.format('DD-MM-YYYY')}</p>
                                     <p>Max Count : {room.maxCount}</p>
                                 </b>
                             </div>
@@ -70,9 +76,9 @@ function Bookingscreen() {
                                 <b>
                                     <h1>Amount</h1>
                                     <hr />
-                                    <p>Total Days:</p>
+                                    <p>Total Days: {totaldays}</p>
                                     <p>Rent Per Day : {room.rentperday}</p>
-                                    <p>Total Amount</p>
+                                    <p>Total Amount: {room.rentperday * totaldays}</p>
                                 </b>
                             </div>
 
@@ -81,11 +87,12 @@ function Bookingscreen() {
                             </div>
                         </div>
                     </div>
-                </div> ):(<Error/>)
-            }
+                </div>
+            ) : (
+                <Error />
+            )}
         </div>
     );
 }
 
 export default Bookingscreen;
-

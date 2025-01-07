@@ -6,7 +6,7 @@ const userRoutes = require('./routes/usersRoute'); // Import your routes
 
 // Initialize Express app
 const app = express();
-const port = 5000; 
+const port =  5000; 
 
 // Middleware
 app.use(cors());
