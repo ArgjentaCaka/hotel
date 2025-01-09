@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const roomsRoute = require('./routes/roomsRoute');
 const userRoutes = require('./routes/usersRoute'); // Import your routes
+const bookingsRoute = require('./routes/bookingsRoute'); // Import your
 
 // Initialize Express app
 const app = express();
@@ -23,6 +24,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 // API routes
 app.use('/api/users', userRoutes);  // Use the routes for user
 app.use('/api/rooms', roomsRoute); // Use the routes for
+app.use('/api/bookings', bookingsRoute); // Use the routes for
 app.get('/api/rooms/getallrooms', async (req, res) => {
     try {
       const rooms = await Room.find(); // Marrim të gjitha dhomat nga baza e të dhënave

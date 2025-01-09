@@ -57,6 +57,22 @@ function Bookingscreen() {
         }
     }, [room, totaldays]); // Runs whenever room or totaldays changes
 
+    async function bookRoom(){
+        const bookingDetails = {
+            room ,
+            userid : JSON.parse(localStorage.getItem('currentUser'))._id,
+            fromdate ,
+            todate ,
+            totalAmount ,
+            totaldays
+        }
+        try{
+            const result = await axios.post('http://localhost:5000/api/bookings/bookroom',bookingDetails)
+        }catch(error){
+
+        }
+    }
+
     return (
         <div className='m-5'>
             {loading ? (
@@ -74,7 +90,7 @@ function Bookingscreen() {
                                 <h1>Booking Details</h1>
                                 <hr />
                                 <b>
-                                    <p>Name :</p>
+                                    <p>Name : {JSON.parse(localStorage.getItem('currentUser')).name}</p>
                                     <p>From Date : {fromdate.format('DD-MM-YYYY')}</p>
                                     <p>To Date : {todate.format('DD-MM-YYYY')}</p>
                                     <p>Max Count : {room.maxCount}</p>
