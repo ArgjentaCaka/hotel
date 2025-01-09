@@ -36,7 +36,7 @@ router.post("/bookroom",async (req, res) => {
                     status : booking.status
                 });
 
-                await roomtemp.save();
+                await roomtemp.save
                 res.send ('Room Booked Successfully ')
 
             }catch(error){

@@ -108,7 +108,7 @@ function Bookingscreen() {
                             </div>
 
                             <div style={{ float: 'right', marginTop: '20px' }}>
-                                <button className='btn btn-primary'>Pay Now</button>
+                                <button className='btn btn-primary' >Pay Now</button>
                             </div>
                         </div>
                     </div>
