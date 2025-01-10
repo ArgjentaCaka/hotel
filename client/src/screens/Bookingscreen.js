@@ -57,21 +57,27 @@ function Bookingscreen() {
         }
     }, [room, totaldays]); // Runs whenever room or totaldays changes
 
-    async function bookRoom(){
+    async function bookRoom() {
         const bookingDetails = {
-            room ,
-            userid : JSON.parse(localStorage.getItem('currentUser'))._id,
-            fromdate ,
-            todate ,
-            totalAmount ,
-            totaldays
-        }
-        try{
-            const result = await axios.post('http://localhost:5000/api/bookings/bookroom',bookingDetails)
-        }catch(error){
-
+            roomid,
+            userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+            fromdate: moment(fromdate).toISOString(),
+            todate: moment(todate).toISOString(),
+            totalAmount,
+            totaldays,
+            transactionId: '12345',  // Mund të jenë të dhëna shtesë që janë të nevojshme
+        };
+    
+        console.log('Booking Details:', bookingDetails);  // Shto log për të parë të dhënat që po dërgoni
+    
+        try {
+            const result = await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails);
+            console.log('Booking result:', result.data);
+        } catch (error) {
+            console.error('Error booking room:', error.response ? error.response.data : error.message);
         }
     }
+    
 
     return (
         <div className='m-5'>
@@ -108,7 +114,7 @@ function Bookingscreen() {
                             </div>
 
                             <div style={{ float: 'right', marginTop: '20px' }}>
-                                <button className='btn btn-primary' >Pay Now</button>
+                                <button className='btn btn-primary' onClick={bookRoom} >Pay Now</button>
                             </div>
                         </div>
                     </div>

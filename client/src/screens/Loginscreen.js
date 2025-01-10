@@ -2,6 +2,7 @@ import React , {useState , useEffect} from 'react'
 import axios from 'axios'
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { data } from 'react-router-dom';
 
 function Loginscreen() {
     const [email , setemail] = useState ('')
@@ -19,7 +20,7 @@ function Loginscreen() {
                 setloading(true);
                 const result = (await axios.post('http://localhost:5000/api/users/login', user)).data
                 setloading(false);
-                localStorage.setItem('currentUser', JSON.stringify(result));
+                localStorage.setItem('currentUser', JSON.stringify(result.user));
                 window.location.href='/home'
 
             }catch(error) {

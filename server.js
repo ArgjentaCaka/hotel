@@ -24,7 +24,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 // API routes
 app.use('/api/users', userRoutes);  // Use the routes for user
 app.use('/api/rooms', roomsRoute); // Use the routes for
-app.use('/api/bookings', bookingsRoute); // Use the routes for
+
 app.get('/api/rooms/getallrooms', async (req, res) => {
     try {
       const rooms = await Room.find(); // Marrim të gjitha dhomat nga baza e të dhënave
@@ -50,7 +50,7 @@ app.get('/api/rooms/getallrooms', async (req, res) => {
         res.status(500).json({ error: 'Error fetching room by ID from MongoDB' });  // Send error on failure
     }
 });
-
+app.use('/api/bookings', bookingsRoute); // Use the routes for
   
   // Start the server
   app.listen(port, () => {
