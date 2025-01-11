@@ -4,7 +4,7 @@ const cors = require('cors');
 const roomsRoute = require('./routes/roomsRoute');
 const userRoutes = require('./routes/usersRoute'); // Import your routes
 const bookingsRoute = require('./routes/bookingsRoute'); // Import your
-
+const stripe = require('stripe')('your-secret-stripe-key'); 
 // Initialize Express app
 const app = express();
 const port =  5000; 
@@ -20,6 +20,8 @@ const mongoURI = 'mongodb+srv://elzakrasniqi2:Mongo123.@cluster0.mwxtd.mongodb.n
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.log('Error connecting to MongoDB:', err));
+
+    
 
 // API routes
 app.use('/api/users', userRoutes);  // Use the routes for user
