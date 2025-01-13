@@ -16,6 +16,7 @@ function Bookingscreen() {
     const [totaldays, setTotalDays] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0); // Initializing totalAmount
     
+    
 
     // Ensure that fromdate and todate are valid moment objects
     const fromdate = moment(paramFromDate, 'DD-MM-YYYY');

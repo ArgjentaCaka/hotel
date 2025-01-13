@@ -4,7 +4,7 @@ const cors = require('cors');
 const roomsRoute = require('./routes/roomsRoute');
 const userRoutes = require('./routes/usersRoute'); // Import your routes
 const bookingsRoute = require('./routes/bookingsRoute'); // Import your
-const stripe = require('stripe')('your-secret-stripe-key'); 
+const stripe = require('stripe')('sk_test_51Qg3PBHQgaUcHXwoYlwcSzUIN3Uj3k7r7vG0rdCI6gQe6uPKe8eevRexcuJyhxKhQNoQNz9nFr8CNFJZDrjm58li00IWNSC66O'); 
 // Initialize Express app
 const app = express();
 const port =  5000; 
