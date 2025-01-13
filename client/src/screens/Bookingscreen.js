@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from 'moment';
-import StripeCheckout from 'react-stripe-checkout';
 
 function Bookingscreen() {
     const { roomid, fromdate: paramFromDate, todate: paramToDate } = useParams();
@@ -14,8 +13,6 @@ function Bookingscreen() {
     const [totaldays, setTotalDays] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0); // Initializing totalAmount
     
-
-    // Ensure that fromdate and todate are valid moment objects
     const fromdate = moment(paramFromDate, 'DD-MM-YYYY');
     const todate = moment(paramToDate, 'DD-MM-YYYY');
 
@@ -47,7 +44,8 @@ function Bookingscreen() {
         }
     }, [room, totaldays]);
 
-    async function onToken(token) {
+    // Simulated booking submission function
+    async function bookRoom ()  {
         const bookingDetails = {
             roomid,
             userid: JSON.parse(localStorage.getItem('currentUser'))._id,
@@ -55,16 +53,17 @@ function Bookingscreen() {
             todate: todate.toISOString(),
             totalAmount,
             totaldays,
-            token,
         };
 
         try {
             const result = await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails);
             console.log('Booking result:', result.data);
+            alert("Booking successful!");
         } catch (error) {
             console.error('Error booking room:', error.response ? error.response.data : error.message);
+            alert("Error occurred while booking.");
         }
-    }
+    };
 
     return (
         <div className="m-5">
@@ -95,14 +94,7 @@ function Bookingscreen() {
                             </b>
                         </div>
                         <div style={{ float: 'right', marginTop: '20px' }}>
-                            <StripeCheckout
-                                amount={totalAmount * 100}
-                                token={onToken}
-                                currency="INR"
-                                stripeKey="pk_test_51Qg2oOH4OZikeoOi974hOelDUiHCWZU0oeVlUvkWwTMLIHJjLL7n2oRblyCxBDo7rjwkOek6GCSDd9dKEBqOJPnB00NS1Ht2gE"
-                            >
-                                <button className="btn btn-primary">Pay Now</button>
-                            </StripeCheckout>
+                            <button  className="btn btn-primary" onClick={bookRoom}>Pay now</button>
                         </div>
                     </div>
                 </div>
