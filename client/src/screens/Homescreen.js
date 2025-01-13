@@ -6,6 +6,7 @@ import 'antd/dist/reset.css';
 import Error from '../components/Error';
 import moment from 'moment'
 import { DatePicker, Space } from 'antd';
+import { set } from 'mongoose';
 
 const { RangePicker } = DatePicker;
 
@@ -17,6 +18,9 @@ function Homescreen() {
   const [fromdate, setfromdate] = useState()
   const [todate, settodate] = useState()
   const [duplicaterooms, setduplicaterooms] = useState([])
+
+  const [searchkey , setsearchkey] = useState('')
+  const [type , settype] = useState('all')
 
   useEffect(() => {
     async function fetchData() {
@@ -78,26 +82,54 @@ function Homescreen() {
     }
 
   }
+  function filterBySearch(){
+    const temprooms = duplicaterooms.filter(room => room.name.toLowerCase().includes(searchkey.toLowerCase()))
+
+    setRooms(temprooms)
+  }
+  function filterByType(e){
+    settype(e)
+    if(e!== 'all'){
+      const temprooms = duplicaterooms.filter(room => room.type.toLowerCase()==e.toLowerCase())
+
+    setRooms(temprooms)
+
+    }else{
+      setRooms(duplicaterooms)
+    }
+  }
   return (
     <div className='container' >
       <div className='row mt-5' >
         <div className='col-md-3'>  <RangePicker format='DD-MM-YYYY ' onChange={filterByDate} />
         </div>
+        <div className='col-md-5'>
+          <input type='text' className='form-control' placeholder='search rooms'
+          value = {searchkey} onChange={(e)=>{setsearchkey(e.target.value)}} onKeyUp={filterBySearch} />
+        </div>
+        <div className='col-md-3'>
+        <select className='form-control ' value ={type} onChange={(e)=>{filterByType(e.target.value)}}>
+          <option value = "all">All</option>
+          <option value = "luxury">Luxury</option>
+          <option value = "standard">Standard</option>
+          <option value = "suite">Suite</option>
+          <option value = "executive">Executive</option>
+          <option value = "grand">Grand</option>
+
+        </select>
+        </div>
+
       </div>
       <div className="row justify-content-center mt-5">
         {loading ? (
           <Loader />
-        ) : rooms.length > 1 ? (
+        ) : (
 
           rooms.map((room) => {
             return <div className="col-md-9 mt-2 " key={room._id}>
               <Room room={room} fromdate={fromdate} todate={todate} />
             </div>;
-          })) : (
-          <Error />
-
-
-        )}
+          })) }
       </div>
 
 

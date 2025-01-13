@@ -74,10 +74,13 @@ h1{
   100% { transform: rotate(360deg); }
 }
 
-input{
+input , select , .ant-picker{
   box-shadow: none !important;
   margin-top: 10px;
-  border: 1px solid black !important;
+  border: 2px solid black !important;
+  width: 100% !important;
+  border-radius: 3px !important;
+  height: 35px !important;
 }
 h2{
   font-size: 30px !important;
@@ -88,6 +91,10 @@ h2{
 .btn btn-secondary dropdown-toggle{
   border: 0px solid black !important;
   
+}
+.ant-picker-input input{
+  border: none !important;
+
 }
 
 
