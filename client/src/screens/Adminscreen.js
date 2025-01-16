@@ -100,65 +100,65 @@ export function Bookings() {
 }
 
 
-export function Rooms(){
-
-    const[rooms, setrooms] =useState([]) 
-    const[loading, setLoading] =useState(true)
-    const[error, setError]= useState()
+export function Rooms() {
+    const [rooms, setRooms] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState();
+  
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/api/rooms/getallrooms");
-                setrooms(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-                setLoading(false);
-                setError(error);
-            }
-        };
-        fetchData();
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("http://localhost:5000/api/rooms/getallrooms");
+          setRooms(response.data);
+          setLoading(false);
+        } catch (err) {
+          console.error(err);
+          setLoading(false);
+          setError(err);
+        }
+      };
+      fetchData();
     }, []);
-    
-    
-      
-
-    
+  
     return (
-        <div className="row">
-          <div className="col-md-10">
-            
-            <h1>Rooms</h1>
-            {loading && (<Loader/>)}
-            <table className="table table-bordered table-dark"> 
-                <thead className="bs " >
-                    <tr>
-                        <th>    Room  Id  </th>
-                        <th>Name </th>
-                        <th>Type</th>
-                        <th>Rent Per Day</th>
-                        <th>Max Count</th>
-                         <th>Phone Number</th>                        
+      <div className="row">
+        <div className="col-md-12">
+          <h1>Rooms</h1>
+          {loading && <Loader />}
+          {error && <div className="alert alert-danger">Failed to load rooms: {error.message}</div>}
+          {!loading && !error && (
+            <table className="table table-bordered table-dark">
+              <thead>
+                <tr>
+                  <th>Room Id</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Rent Per Day</th>
+                  <th>Max Count</th>
+                  <th>Phone Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rooms.length > 0 &&
+                  rooms.map((room, index) => (
+                    <tr key={index}>
+                      
+                      <td>{room._id}</td>
+
+                      <td>{room.name}</td>
+                      <td>{room.type}</td>
+                      <td>{room.rentperday}</td>
+                      <td>{room.maxcount}</td>
+                      <td>{room.phonenumber}</td>
                     </tr>
-                </thead>
-                <tbody> {rooms.length && (rooms.map(room=>{
-                    return <tr>
-                        <td>
-                            {room.id}
-                        </td>
-                        <td>{room.name}</td>
-                        <td>{room.type}</td>
-                        <td>{room.rentperday}</td>
-                        <td>{room.maxcount}</td>
-                        <td>{room.phonenumber}</td>
-                    </tr>
-                }))}</tbody>
+                  ))}
+              </tbody>
             </table>
-            
-          </div>
+          )}
         </div>
-    )
-} 
+      </div>
+    );
+  }
 export function Users(){
     const [users, setusers] = useState([])
     const [loading, setLoading] = useState(true)
