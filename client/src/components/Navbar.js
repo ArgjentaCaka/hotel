@@ -23,7 +23,7 @@ function Navbar() {
     return (
         <div>
             <nav className="navbar navbar-expand-lg">
-                <a className="navbar-brand" href="#">Royal Paradise</a>
+                <a className="navbar-brand" href="/home">Royal Paradise</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon "><i className="fa fa-bars" style={{ color: 'white' }}></i></span>
                 </button>

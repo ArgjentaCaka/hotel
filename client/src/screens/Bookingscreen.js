@@ -17,6 +17,10 @@ function Bookingscreen() {
     const todate = moment(paramToDate, 'DD-MM-YYYY');
 
     useEffect(() => {
+
+        if ( !localStorage.getItem('currentUser')){
+            window.location.reload ='/login'
+        }
         if (fromdate.isValid() && todate.isValid()) {
             const days = moment.duration(todate.diff(fromdate)).asDays() + 1;
             setTotalDays(days);
