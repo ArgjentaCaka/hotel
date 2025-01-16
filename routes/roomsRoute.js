@@ -26,6 +26,15 @@ router.post('/getroombyid', async (req, res) => {
     }
 });
 
+router.get("/getallrooms" , async (req, res )=>{
+    try {
+        const rooms = await Rooms.find()
+        res.send(rooms)
+    } catch (error) {
+        return res.status(400).json({error});
+    }
+})
+
 
 
 
