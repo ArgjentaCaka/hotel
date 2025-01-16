@@ -108,8 +108,8 @@ export function Rooms(){
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get("http://localhost:5000/api/rooms/getallrooms");
-                setrooms(data.data);
+                const response = await axios.get("http://localhost:5000/api/rooms/getallrooms");
+                setrooms(response.data);
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -117,9 +117,9 @@ export function Rooms(){
                 setError(error);
             }
         };
-
-        fetchData(); // Kjo është mënyra e saktë për të thirrur funksionin async
-    }, []); // Sigurohuni që efekti të ekzekutohet vetëm një herë
+        fetchData();
+    }, []);
+    
     
       
 
@@ -164,25 +164,27 @@ export function Users(){
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState()
 
-    useEffect(async() => {
-       
-        try {
-            const data = await (await axios.get("http://localhost:5000/api/users/getallusers")).data
-            setusers(data);
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-            setError(error);
-        }
-    },
-    []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/users/getallusers");
+                setusers(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+                setLoading(false);
+                setError(error);
+            }
+        };
+        fetchData();
+    }, []);
+    
 
     return(
         <div className="row">
             <div className="col-md-12">
              <h1>Users</h1>
-             {loading &&<Loader/>}
+             {loading}
              <table className='table table-dark table-bordered'>
                 <thead>
                     <tr>
