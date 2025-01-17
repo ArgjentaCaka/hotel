@@ -8,6 +8,7 @@ import Error from "../components/Error";
 
 const { TabPane } = Tabs;
 function Adminscreen() {
+ 
     useEffect(()=>{
     if( !JSON. parse(localStorage.getItem("currentUser")).isAdmin){
        window.location.href = '/home'
@@ -101,7 +102,7 @@ export function Bookings() {
 
 
 export function Rooms() {
-    const [rooms, setRooms] = useState([]);
+    const [rooms, setRooms] = useState([]);  // Sigurohuni që rooms të jetë gjithmonë një varg
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
   
@@ -109,7 +110,12 @@ export function Rooms() {
       const fetchData = async () => {
         try {
           const response = await axios.get("http://localhost:5000/api/rooms/getallrooms");
-          setRooms(response.data);
+          if (Array.isArray(response.data)) {
+            setRooms(response.data);  // Përdorni të dhënat nëse janë një varg
+          } else {
+            console.error("Të dhënat nuk janë varg i duhur");
+            setError("Data format is incorrect.");
+          }
           setLoading(false);
         } catch (err) {
           console.error(err);
