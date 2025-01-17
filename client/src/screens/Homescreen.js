@@ -45,14 +45,14 @@ function Homescreen() {
       return;
     }
   
-    const startDate = dates[0]; // Keep as Moment object
-    const endDate = dates[1]; // Keep as Moment object
+    const startDate = dates[0];
+    const endDate = dates[1]; 
   
     setFromDate(startDate.format('DD-MM-YYYY'));
     setToDate(endDate.format('DD-MM-YYYY'));
   
     const filteredRooms = duplicateRooms.filter(room => {
-      // Kontrolloni që `currentBookings` ekziston dhe është një array
+      
       if (!room.currentbookings || !Array.isArray(room.currentbookings) || room.currentbookings.length === 0) {
         console.log("Room has no bookings:", room);
         return true; // Dhoma është e disponueshme nëse nuk ka rezervime
