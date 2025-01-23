@@ -49,25 +49,37 @@ function Bookingscreen() {
     }, [room, totaldays]);
 
     // Simulated booking submission function
-    async function bookRoom ()  {
+    async function bookRoom() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+        if (!currentUser || !currentUser._id) {
+            alert('Please log in first or user ID is missing');
+            window.location.href = '/login';
+            return;
+        }
+    
         const bookingDetails = {
             roomid,
-            userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+            userid: currentUser._id,
             fromdate: fromdate.toISOString(),
             todate: todate.toISOString(),
             totalAmount,
             totaldays,
         };
-
+    
+        // Log the bookingDetails to check
+        console.log("Booking Details:", bookingDetails);
+    
         try {
             const result = await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails);
             console.log('Booking result:', result.data);
             alert("Booking successful!");
         } catch (error) {
             console.error('Error booking room:', error.response ? error.response.data : error.message);
-            alert("Error occurred while booking.");
+            alert(error.response ? error.response.data : 'Error occurred while booking.');
         }
-    };
+    }
+    
 
     return (
         <div className="m-5">
