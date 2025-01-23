@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from 'moment';
+import Swal from 'sweetalert2'
 
-function Bookingscreen() {
-    const { roomid, fromdate: paramFromDate, todate: paramToDate } = useParams();
+function Bookingscreen({ match}) {
+   
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [room, setRoom] = useState(null);
+    const { roomid, fromdate: paramFromDate, todate: paramToDate } = useParams();
     const [totaldays, setTotalDays] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0); // Initializing totalAmount
     

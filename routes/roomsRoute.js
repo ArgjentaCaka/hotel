@@ -36,6 +36,16 @@ router.get("/getallrooms" , async (req, res )=>{
 })
 
 
+router.post("/addroom",async(req,res)=>{
+    try {
+        const newroom= new Rooms(req.body)
+        await newroom.save ()
+        res.send('New Room Added Successfully')
+    } catch (error) {
+        return res.status(400).json({error});
+    }
+})
+
 
 
 module.exports = router; 
