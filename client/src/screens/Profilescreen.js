@@ -47,7 +47,7 @@ export function MyBookings() {
     const fetchBookings = async () => {
         try {
             setLoading(true);
-            const response = await axios.post('http://localhost:5000/api/bookings/getbookingsbyuserid', { userid: user._id });
+            const response = await axios.post('http://localhost:5000/api/bookings/getbookingsbyuserid', { userid: user.id });
             setBookings(response.data); // Using the data from the axios response
             setLoading(false);
         } catch (err) {
@@ -59,7 +59,7 @@ export function MyBookings() {
 
     // useEffect to fetch bookings only if user is present and hasn't been fetched already
     useEffect(() => {
-        if (user && user._id) {
+        if (user && user.id) {
             fetchBookings(); // Call the function to fetch bookings
         }
     }, [user._id]); // Dependency array with `user._id` ensures the fetch happens only once or when the user ID changes

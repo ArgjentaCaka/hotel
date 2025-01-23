@@ -59,7 +59,7 @@ function Bookingscreen({ }) {
     
         const bookingDetails = {
             roomid,
-            userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+            userid: JSON.parse(localStorage.getItem('currentUser')).id,
             fromdate: fromdate.toISOString(),
             todate: todate.toISOString(),
             totalAmount,

@@ -42,36 +42,37 @@ router.post('/register', async (req, res) => {
 // Rruga për login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
-    if (!email || !password) {
-        return res.status(400).json({ message: 'Email and password are required' });
-    }
-
+  
     try {
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
-        }
-
-        // Kthe të dhënat e përdoruesit pas login-it
-        res.status(200).json({
-            message: 'Login successful',
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-            },
-        });
+      // Gjeni përdoruesin nga email
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid credentials' });
+      }
+  
+      // Krahasoni password-in e dërguar me atë të ruajtur (hash)
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'Invalid credentials' });
+      }
+  
+      // Krijo një objekt që do të dërgohet si përgjigje
+      const userResponse = {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin, // Dërgo 'isAdmin' si pjesë e përgjigjes
+      };
+  
+      // Kthejeni këtë objekt si përgjigje pas login-it
+      res.json({ user: userResponse });
+  
     } catch (error) {
-        console.error('Error logging in:', error);
-        res.status(500).json({ message: 'Server error during login' });
+      console.error(error);
+      res.status(500).json({ message: 'Server Error' });
     }
-});
+  });
 
 // Rruga për të marrë të gjithë përdoruesit
 router.get('/getallusers', async (req, res) => {
