@@ -6,7 +6,8 @@ import Error from "../components/Error";
 import moment from 'moment';
 import Swal from 'sweetalert2'
 
-function Bookingscreen({ match}) {
+
+function Bookingscreen({ }) {
    
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -52,25 +53,20 @@ function Bookingscreen({ match}) {
 
     // Simulated booking submission function
     async function bookRoom() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
     
-        if (!currentUser || !currentUser._id) {
-            alert('Please log in first or user ID is missing');
-            window.location.href = '/login';
-            return;
-        }
+        
     
         const bookingDetails = {
             roomid,
-            userid: currentUser._id,
+            userid: JSON.parse(localStorage.getItem('currentUser'))._id,
             fromdate: fromdate.toISOString(),
             todate: todate.toISOString(),
             totalAmount,
             totaldays,
         };
     
-        // Log the bookingDetails to check
-        console.log("Booking Details:", bookingDetails);
+       
     
         try {
             const result = await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails);
@@ -78,7 +74,7 @@ function Bookingscreen({ match}) {
             alert("Booking successful!");
         } catch (error) {
             console.error('Error booking room:', error.response ? error.response.data : error.message);
-            alert(error.response ? error.response.data : 'Error occurred while booking.');
+            alert( 'Error occurred while booking.');
         }
     }
     

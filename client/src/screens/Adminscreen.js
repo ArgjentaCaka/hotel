@@ -138,7 +138,7 @@ export function Rooms() {
           {error && <div className="alert alert-danger">Failed to load rooms: {error.message}</div>}
           {!loading && !error && (
             <table className="table table-bordered table-dark">
-              <thead>
+              <thead className="bs">
                 <tr>
                   <th>Room Id</th>
                   <th>Name</th>
@@ -149,9 +149,11 @@ export function Rooms() {
                 </tr>
               </thead>
               <tbody>
-                {rooms.length > 0 &&
-                  rooms.map((room, index) => (
-                    <tr key={index}>
+                {rooms.length  && (
+                  rooms.map(room  => { 
+                    return
+                    <tr>
+                 
                       
                       <td>{room._id}</td>
 
@@ -161,7 +163,7 @@ export function Rooms() {
                       <td>{room.maxcount}</td>
                       <td>{room.phonenumber}</td>
                     </tr>
-                  ))}
+                          }))}
               </tbody>
             </table>
           )}
