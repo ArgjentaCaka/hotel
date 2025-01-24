@@ -14,8 +14,8 @@ function Adminscreen() {
     useEffect(()=>{
     if( !JSON. parse(localStorage.getItem("currentUser")).isAdmin){
        window.location.href = '/home'
-    }
-    },[]
+    } 
+    },[]                  
 
     )
     return (
@@ -253,7 +253,7 @@ export function Addroom (){
     }
     try {
       setLoading(true);
-      const result = await (await axios.post ('/api/rooms/addroom',newroom )).data
+      const result = await (await axios.post ('http://localhost:5000/api/rooms/addroom',newroom )).data
       console.log (result)
       setLoading(false)
       Swal.fire('Congrats' , "Your New Room Added Successfully", 'success').then (result=>{
