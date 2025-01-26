@@ -133,11 +133,15 @@ function Homescreen() {
         {loading ? (
           <Loader />
         ) : (
-          rooms.map((room) => {
-            return <div className="col-md-9 mt-2" key={room._id}>
-              <Room room={room} fromdate={fromDate} todate={toDate} />
-            </div>;
-          })
+          Array.isArray(rooms) && rooms.length > 0 ? (
+            rooms.map((room) => (
+              <div className="col-md-9 mt-2" key={room.id}>
+                <Room room={room} fromdate={fromDate} todate={toDate} />
+              </div>
+            ))
+          ) : (
+            <p>No rooms available</p> // Nëse nuk ka dhoma, mund të shfaqni një mesazh
+          )
         )}
       </div>
     </div>

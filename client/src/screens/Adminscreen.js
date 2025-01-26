@@ -14,8 +14,8 @@ function Adminscreen() {
     useEffect(()=>{
     if( !JSON. parse(localStorage.getItem("currentUser")).isAdmin){
        window.location.href = '/home'
-    } 
-    },[]                  
+    }
+    },[]
 
     )
     return (
@@ -114,21 +114,27 @@ export function Rooms() {
       const fetchData = async () => {
         try {
           const response = await axios.get("http://localhost:5000/api/rooms/getallrooms");
-          if (Array.isArray(response.data)) {
-            setRooms(response.data);  // Përdorni të dhënat nëse janë një varg
+    
+          // Kontrolloni për të parë nëse `response.data.rooms` është një varg
+          if (response.data && Array.isArray(response.data.rooms)) {
+            setRooms(response.data.rooms);  // Përdorni të dhënat nëse janë një varg
           } else {
-            console.error("Të dhënat nuk janë varg i duhur");
+            console.error("Të dhënat nuk janë varg i duhur: ", response.data);
             setError("Data format is incorrect.");
+            setRooms([]);  // Nëse nuk ka dhoma, vendosni rooms bosh
           }
+          
           setLoading(false);
         } catch (err) {
-          console.error(err);
+          console.error("Error fetching rooms: ", err);
           setLoading(false);
-          setError(err);
+          setError("Failed to load rooms.");
         }
       };
+    
       fetchData();
     }, []);
+    
   
     return (
       <div className="row">
@@ -149,21 +155,16 @@ export function Rooms() {
                 </tr>
               </thead>
               <tbody>
-                {rooms.length  && (
-                  rooms.map(room  => { 
-                    return
-                    <tr>
-                 
-                      
-                      <td>{room._id}</td>
-
-                      <td>{room.name}</td>
-                      <td>{room.type}</td>
-                      <td>{room.rentperday}</td>
-                      <td>{room.maxcount}</td>
-                      <td>{room.phonenumber}</td>
-                    </tr>
-                          }))}
+              {rooms.length > 0 && rooms.map(room => (
+  <tr key={room._id}>
+    <td>{room._id}</td>
+    <td>{room.name}</td>
+    <td>{room.type}</td>
+    <td>{room.rentperday}</td>
+    <td>{room.maxCount}</td>
+    <td>{room.phonenumber}</td>
+  </tr>
+))}
               </tbody>
             </table>
           )}
@@ -253,7 +254,7 @@ export function Addroom (){
     }
     try {
       setLoading(true);
-      const result = await (await axios.post ('http://localhost:5000/api/rooms/addroom',newroom )).data
+      const result = await (await axios.post ('/api/rooms/addroom',newroom )).data
       console.log (result)
       setLoading(false)
       Swal.fire('Congrats' , "Your New Room Added Successfully", 'success').then (result=>{
