@@ -45,16 +45,20 @@ router.post('/getroombyid', async (req, res) => {
 // })
 
 
-router.post("/addroom",async(req,res)=>{
+router.post("/addroom", async (req, res) => {
+    console.log("Data received:", req.body);  // Kjo do t'ju ndihmojë të shihni se çfarë po merr backend
+  
     try {
-        const newroom= new Rooms(req.body)
-        await newroom.save ()
-        res.send('New Room Added Successfully')
+      const newroom = new Rooms(req.body);
+      await newroom.save();
+      res.send('New Room Added Successfully');
     } catch (error) {
-        return res.status(400).json({error});
+      console.error("Error saving room:", error);  // Ky log do të tregojë ndihmë më të detajuar për gabimin
+      return res.status(400).json({ error: error.message });  // Dërgoni mesazhin e gabimit
     }
-})
-
+  });
+  
+  
 
 
 module.exports = router; 

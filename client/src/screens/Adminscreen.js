@@ -232,7 +232,7 @@ export function Addroom (){
   const [error, setError] = useState()
   const [name, setname] =useState ('')
   const [rentperday, setrentperday] = useState ()
-  const [maxcount, setmaxcount] = useState()
+  const [maxCount, setmaxCount] = useState()
   const [description, setdescription] = useState()
   const [phonenumber, setphonenumber] = useState()
   const [type, settype] = useState()
@@ -242,31 +242,39 @@ export function Addroom (){
 
 
 
-   async function addRoom(){
-    const newroom ={
-      name, 
-      rentperday,
-      maxcount,
+  async function addRoom() {
+    if (!name || !rentperday || !maxCount || !description || !phonenumber || !type || !imageurl1 || !imageurl2 || !imageurl3) {
+      alert("All fields are required.");
+      return;
+    }
+  
+    const newroom = {
+      name,
+      rentperday: Number(rentperday),  // Sigurohuni që këto janë numra
+      maxCount: Number(maxCount),       // Sigurohuni që këto janë numra
       description,
       phonenumber,
       type,
       imageurls: [imageurl1, imageurl2, imageurl3]
-    }
+    };
+  
+    console.log("New room to be added:", newroom); // Kontrolloni të dhënat që po dërgoni
+  
     try {
       setLoading(true);
-      const result = await (await axios.post ('/api/rooms/addroom',newroom )).data
-      console.log (result)
-      setLoading(false)
-      Swal.fire('Congrats' , "Your New Room Added Successfully", 'success').then (result=>{
-        window.location.href='/home'
-      })
+      const result = await axios.post('http://localhost:5000/api/rooms/addroom', newroom);
+      console.log(result.data);
+      setLoading(false);
+      Swal.fire('Congrats', "Your New Room Added Successfully", 'success').then(result => {
+        window.location.href = '/home';
+      });
     } catch (error) {
-      console.log(error)
-      setLoading(false)
-      Swal.fire ('Oops', 'Something went wrong', 'Error' )
+      console.log(error);
+      setLoading(false);
+      Swal.fire('Oops', 'Something went wrong', 'error');
     }
-    
   }
+  
 
   return (
     <div className="row">
@@ -275,7 +283,7 @@ export function Addroom (){
      {loading && <Loader/>}
       <input type = "text" className = 'form-control' placeholder="room name" value= {name} onChange= {(e)=>{setname(e.target.value)}}/>
       <input type = "text" className = 'form-control' placeholder="rent per day"  value= {rentperday} onChange= {(e)=>{setrentperday(e.target.value)}}/>
-      <input type = "text" className = 'form-control' placeholder="max count"  value= {maxcount} onChange= {(e)=>{setmaxcount(e.target.value)}}/>
+      <input type = "text" className = 'form-control' placeholder="max count"  value= {maxCount} onChange= {(e)=>{setmaxCount(e.target.value)}}/>
       <input type = "text" className = 'form-control' placeholder="description"  value= {description} onChange= {(e)=>{setdescription(e.target.value)}}/>
       <input type = "text" className = 'form-control' placeholder="phone number"  value= {phonenumber} onChange= {(e)=>{setphonenumber(e.target.value)}}/>
        </div>
