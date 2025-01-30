@@ -173,15 +173,37 @@ h2 {
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
-  color: white(56, 55, 55);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 350px; 
   padding-bottom: 50px;
-  filter: brightness(60%); /* Ul ndriçimin e imazhit për kontrast më të mirë */
 }
+
+.landing-content {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.landing-content h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.landing-content p {
+  font-size: 1.5rem;
+  max-width: 600px;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
 
 
 
@@ -455,50 +477,60 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
 }
-.footer-section {
-  background-color: #a79d9d;
-  color: whitesmoke;
-  padding: 30px 10px;
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%; /* Siguron që footer-i të marrë gjithë gjerësinë e ekranit */
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.footer-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  padding: 10px 20px; /* Zvogëlojmë padding për të zvogëluar lartësinë */
+  max-width: 1200px;
+  margin: auto;
+  height: auto; /* E caktuar si një lartësi më e vogël */
+  width: 100%; /* Siguron që footer-container të mbushë gjithë hapësirën */
   flex-wrap: wrap;
 }
 
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  flex-wrap: wrap;
-}
 
 .footer-left {
   flex: 1;
-  padding-right: 20px;
-}
-
-.footer-left p {
-  margin: 0;
-  line-height: 1.6;
+  text-align: left;
+  width: 100%; /* Siguron që të marrë gjithë hapësirën */
+  word-wrap: break-word;
+  margin-left: 0;
+  line-height: 1.5;
 }
 
 .footer-right {
-  display: flex;
-  justify-content: space-between;
   flex: 1;
+  text-align: right;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  width: 100%; /* Siguron që të marrë gjithë hapësirën */
+  margin-top: 10px;
 }
 
-.footer-links ul {
-  list-style-type: none;
+.footer-links {
+  list-style: none;
   padding: 0;
+  margin-top: 20px;
 }
 
-.footer-links ul li {
-  margin: 5px 0;
+.footer-links li {
+  margin-bottom: 5px;
 }
 
 .footer-links a {
-  color: #fff;
+  color: green;
   text-decoration: none;
 }
 
@@ -506,31 +538,32 @@ h2 {
   text-decoration: underline;
 }
 
-.footer-social {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.copyright {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 20px;
 }
 
-.social-icon {
-  width: 30px;
-  height: 30px;
-  margin: 0 10px;
+footer img {
+  height: 100px;
 }
 
-hr {
+footer p {
+  margin-bottom: 0;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+footer hr {
+  border: 0;
+  height: 1px;
+  background-color: #0f3319;
   width: 100%;
-  border: 1px solid #fff;
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
-.footer-bottom {
-  text-align: center;
-  font-size: 14px;
-  color: #bbb;
-}
-
-.footer-bottom p {
-  margin: 0;
-  text-align: center;
+footer .footer-container {
+  flex-direction: column;
+  align-items: flex-start;
 }
