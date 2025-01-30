@@ -145,29 +145,41 @@ function Landingscreen() {
     </div>
         <p class="location-description">Royal Paradise Hotel is located in the vibrant heart of the city, easily accessible and just a few minutes away from popular landmarks and business centers.</p>
       </div>
-      
-      <footer className="footer" style={{ position: 'relative', bottom: '0', width: '100%', backgroundColor: '#f8f9fa', padding: '20px' }}>
-        <div className="footer-container">
-          <div className="footer-left">
-            <p style={{ width: '50%', wordWrap: 'break-word', marginBottom: '0px', textAlign: 'left' }}>
-              Our dedicated team strives to provide you with an unforgettable experience, blending comfort, hospitality, and personalized service.
-              We look forward to welcoming you back to Royal Paradise in the near future.
-            </p>
-            <img src="https://www.royalparadise.gr/wp-content/uploads/2019/03/royal-logo.png" alt="Royal Paradise" style={{ height: '100px' }} />
-          </div>
+      <br/>
+      <footer className="footer" style={{ position: 'relative', bottom: '0', height: '100px', width: '100%', backgroundColor: '#f8f9fa', padding: '10px 20px' }}>
+  <div className="footer-container">
+    <div className="footer-left">
+      <h1 style={{ fontSize: '18px',color:'#203b22', marginBottom: '5px' }}>About Us</h1>
+      <p style={{ width: '50%', wordWrap: 'break-word',color:'green', marginBottom: '0', textAlign: 'left', fontSize: '14px' }}>
+        Our dedicated team strives to provide you with an unforgettable experience, blending comfort, hospitality, and personalized service. We look forward to welcoming you back to Royal Paradise in the near future.
+      </p>
+    </div>
+    <div className="footer-section" style={{ textAlign: 'center', color: '#555' }}>
+  <h2 style={{ fontSize: '18px', color: '#203b22', marginBottom: '5px' }}>Follow Us</h2>
+  <div className="social-media">
+    <a href="https://www.facebook.com/" style={{ color: '#6c757d', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>Facebook</a>
+    <a href="https://x.com/" style={{ color: '#6c757d', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>Twitter</a>
+    <a href="https://www.instagram.com/" style={{ color: '#6c757d', textDecoration: 'none', display: 'block', marginBottom: '5px' }}>Instagram</a>
+  </div>
+</div>
 
-          <div className="footer-right">
-            <ul className="footer-links">
-              <li><a href="#about-section" className="footer-link">About</a></li>
-              <li><a href="#gallery-section" className="footer-link">Gallery</a></li>
-              <li><a href="#location-section" className="footer-link">Location</a></li>
-              <li><a href="/contact" className="footer-link">Contact</a></li>
-            </ul>
-            <hr style={{ border: '0', height: '1px', backgroundColor: '#0f3319', width: '100%' }} />
-            <p className="copyright">&copy; {new Date().getFullYear()} All Rights Reserved.</p>
-          </div>
-        </div>
-      </footer>
+
+    <div className="footer-right">
+      <h1 style={{ fontSize: '20px',color:'#203b22', marginBottom: '5px' }}>Quick Links</h1>
+      <ul className="footer-links" style={{ margin: '0', padding: '0' }}>
+        <li><a href="#about-section" className="footer-link">About</a></li>
+        <li><a href="#gallery-section" className="footer-link">Gallery</a></li>
+        <li><a href="#location-section" className="footer-link">Location</a></li>
+        <li><a href="/home" className="footer-link">Book Now</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr style={{ border: '0', height: '1px', backgroundColor: '#0f3319', width: '100%' }} />
+  <p className="copyright" style={{ fontSize: '15px', textAlign: 'center', marginTop: '5px' }}>&copy; {new Date().getFullYear()} Royal Paradise. All Rights Reserved.</p>
+</footer>
+
+
     </div>
     
     

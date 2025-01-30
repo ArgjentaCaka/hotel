@@ -173,14 +173,15 @@ h2 {
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
+  color: white(56, 55, 55);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 350px; 
   padding-bottom: 50px;
+  filter: brightness(60%); /* Ul ndriçimin e imazhit për kontrast më të mirë */
 }
-
 .landing-content {
   position: absolute;
   top: 20%;
@@ -480,49 +481,43 @@ h2 {
 footer {
   position: relative;
   bottom: 0;
-  width: 100%; /* Siguron që footer-i të marrë gjithë gjerësinë e ekranit */
+  width: 100%;
   background-color: #f8f9fa;
-  padding: 20px;
+  padding: 10px 20px; /* Zvogëlojmë padding për një footer më të ulët */
+  height: 100px; /* Sigurojmë që lartësia e footer-it të jetë 100px */
 }
 
 .footer-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 10px 20px; /* Zvogëlojmë padding për të zvogëluar lartësinë */
+  justify-content: space-between; /* Siguron që seksionet të ndahen në dy pjesë */
+  align-items: center; /* Siguron që elementët janë në të njëjtin nivel vertikal */
   max-width: 1200px;
   margin: auto;
-  height: auto; /* E caktuar si një lartësi më e vogël */
-  width: 100%; /* Siguron që footer-container të mbushë gjithë hapësirën */
-  flex-wrap: wrap;
+  width: 100%;
 }
-
 
 .footer-left {
   flex: 1;
   text-align: left;
-  width: 100%; /* Siguron që të marrë gjithë hapësirën */
   word-wrap: break-word;
-  margin-left: 0;
-  line-height: 1.5;
+  line-height: 1.2;
+  font-size: 14px; /* Madhësia e tekstit është ulur për të siguruar hapësirë */
 }
 
 .footer-right {
   flex: 1;
   text-align: right;
-  font-size: 20px;
+  font-size: 14px; /* Madhësia e tekstit për seksionin e djathtë */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
-  width: 100%; /* Siguron që të marrë gjithë hapësirën */
-  margin-top: 10px;
 }
 
 .footer-links {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .footer-links li {
@@ -535,24 +530,18 @@ footer {
 }
 
 .footer-links a:hover {
-  text-decoration: underline;
-}
-
-.copyright {
-  font-size: 0.9rem;
-  opacity: 0.8;
-  margin-top: 20px;
+  text-decoration: none;
 }
 
 footer img {
-  height: 100px;
+  height: 60px;
 }
 
 footer p {
   margin-bottom: 0;
   text-align: left;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 footer hr {
@@ -560,10 +549,12 @@ footer hr {
   height: 1px;
   background-color: #0f3319;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px; /* Siguron hapësirën mbi vijën */
 }
 
-footer .footer-container {
-  flex-direction: column;
-  align-items: flex-start;
+.copyright {
+  font-size: 12px;
+  opacity: 0.8;
+  text-align: center; /* Vendosim qendër për copyright */
+  margin-top: 5px;
 }

@@ -25,7 +25,7 @@ function Loginscreen() {
       localStorage.setItem('currentUser', JSON.stringify(result.user));
 
       // Drejtoje përdoruesin në faqen kryesore me window.location.href
-      window.location.href = '/home';  // Kjo do të bëjë një full page reload dhe do të shkojë në /home
+      window.location.href = '/';  // Kjo do të bëjë një full page reload dhe do të shkojë në /home
 
     } catch (error) {
       console.log(error);
