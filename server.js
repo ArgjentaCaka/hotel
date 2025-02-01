@@ -60,6 +60,19 @@ app.post('/api/rooms/getroombyid', async (req, res) => {
 
 // Use bookingsRoute for managing bookings
 app.use('/api/bookings', bookingsRoute); 
+// server/server.js
+
+const { connectMSSQL } = require('./db'); // Importo connectMSSQL nga db.js
+const reviewRoutes = require('./routes/reviewRoutes');
+
+
+// Lidhja me MSSQL
+connectMSSQL();
+
+// Përdor rrugën për review
+app.use('/api/reviews', reviewRoutes);
+
+
 
 // Start the server
 app.listen(port, () => {

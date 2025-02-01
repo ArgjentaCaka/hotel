@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ReviewForm from './ReviewForm'; // Assuming it's in the same folder
+
 
 
 function Landingscreen() {
@@ -145,7 +147,9 @@ function Landingscreen() {
     </div>
         <p class="location-description">Royal Paradise Hotel is located in the vibrant heart of the city, easily accessible and just a few minutes away from popular landmarks and business centers.</p>
       </div>
+
       <br/>
+     <ReviewForm/>
       <footer className="footer" style={{ position: 'relative', bottom: '0', height: '100px', width: '100%', backgroundColor: '#f8f9fa', padding: '10px 20px' }}>
   <div className="footer-container">
     <div className="footer-left">
