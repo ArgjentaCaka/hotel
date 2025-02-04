@@ -9,6 +9,7 @@ import Registerscreen from './screens/Registerscreen';
 import Profilescreen from './screens/Profilescreen';
 import Adminscreen from './screens/Adminscreen';
 import Landingscreen from './screens/Landingscreen'
+import ReviewForm from './screens/ReviewForm';
 
 
 
@@ -26,6 +27,8 @@ function App() {
       <Route path='/profile' element={<Profilescreen/>}/>
       <Route path = '/admin' element={<Adminscreen/>}/>
       <Route path = '/' element= {<Landingscreen/>}/>
+      <Route path="/review" element={<ReviewForm/>} />
+    
      
       
       </Routes>

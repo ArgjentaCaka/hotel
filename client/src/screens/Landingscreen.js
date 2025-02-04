@@ -174,6 +174,7 @@ function Landingscreen() {
         <li><a href="#about-section" className="footer-link">About</a></li>
         <li><a href="#gallery-section" className="footer-link">Gallery</a></li>
         <li><a href="#location-section" className="footer-link">Location</a></li>
+        <li><a href="/review" className="footer-link">Review</a></li>
         <li><a href="/home" className="footer-link">Book Now</a></li>
       </ul>
     </div>
