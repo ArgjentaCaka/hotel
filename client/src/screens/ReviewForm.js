@@ -9,20 +9,33 @@ function ReviewForm() {
   const [loading, setLoading] = useState(true); // Ndjek ngarkimin e të dhënave
   const [error, setError] = useState(null); // Ndjek gabimet
 
-  // Përdorimi i useEffect për të marrë review-t nga backend
+  // Përdorimi i useEffect për të marrë review-t nga backend dhe për t'i ruajtur ato në localStorage
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/reviews');
-        setReviews(response.data); // Ruaj review-t
+        const fetchedReviews = response.data; // Të dhënat e review-ve nga backend
+
+        // Ruajmë review-t që merren nga MSSQL në localStorage për përdorim në browser
+        localStorage.setItem('reviews', JSON.stringify(fetchedReviews));
+
+        // Vendosim review-t në shtetin e komponentit
+        setReviews(fetchedReviews);
       } catch (err) {
-        setError('Nuk ka asnje review per momentin.'); // Vendos gabimin
+        setError('Nuk ka asnjë review për momentin.');
       } finally {
-        setLoading(false); // Përsëri vendos ngarkimin në false
+        setLoading(false);
       }
     };
-    
-    fetchReviews(); // Thirrja e funksionit për të marrë review-t
+
+    // Kontrollo nëse ka review të ruajtura në localStorage
+    const savedReviews = JSON.parse(localStorage.getItem('reviews'));
+    if (savedReviews) {
+      setReviews(savedReviews); // Përdorim review-t e ruajtura nga localStorage nëse ekzistojnë
+      setLoading(false);
+    } else {
+      fetchReviews(); // Përdorim fetch nëse nuk ka review të ruajtura në localStorage
+    }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -40,15 +53,16 @@ function ReviewForm() {
         rating,
       });
 
-      alert(response.data.message); // Mesazhi nga backend
+      alert(response.data.message);
+
+      // Pas dërgimit të review-t, rifreskojmë listën e review-ve nga MSSQL dhe localStorage
+      const updatedReviews = await axios.get('http://localhost:5000/api/reviews');
+      setReviews(updatedReviews.data);
+      localStorage.setItem('reviews', JSON.stringify(updatedReviews.data));
+
       setUsername('');
       setContent('');
       setRating('');
-
-      // Përsëri marrja e review-ve pas dërgimit të një të ri
-      const updatedResponse = await axios.get('http://localhost:5000/api/reviews');
-      setReviews(updatedResponse.data);
-
     } catch (error) {
       console.error('Gabim gjatë dërgimit të review-t:', error);
       alert('Gabim gjatë dërgimit të review-t');
