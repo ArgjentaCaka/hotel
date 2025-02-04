@@ -1,69 +1,89 @@
-// client/src/ReviewForm.js
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 function ReviewForm() {
   const [username, setUsername] = useState('');
   const [content, setContent] = useState('');
   const [rating, setRating] = useState('');
+  const [reviews, setReviews] = useState([]);
 
-  const handleSubmit = async (e) => {
+  // Funksioni për të ruajtur dhe shfaqur review-et nga localStorage
+  useEffect(() => {
+    const savedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+    setReviews(savedReviews);
+  }, []);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-   
-      
-        // Verifikoni që të dhënat janë të plota dhe të sakta
-        if (!username || !content || !rating) {
-          alert("Të gjitha fushat janë të detyrueshme!");
-          return;
-        }
-      
-        try {
-          // Dërgoni të dhënat tek backend
-          const response = await axios.post('http://localhost:5000/api/reviews/add', {
-            username,
-            content,
-            rating,
-          });
-          
-          // Kontrolloni përgjigjen nga backend
-          alert(response.data.message); 
-        } catch (error) {
-          // Trajtoni gabimet që mund të ndodhin gjatë kërkesës
-          console.error('Gabim gjatë dërgimit të review-t:', error);
-          alert('Gabim gjatë dërgimit të review-t');
-        }
-      };
-      
+
+    if (!username || !content || !rating) {
+      alert('Të gjitha fushat janë të detyrueshme!');
+      return;
+    }
+
+    // Krijimi i një review të ri
+    const newReview = { username, content, rating };
+
+    // Ruajtja e review-it të ri në array dhe në localStorage
+    const updatedReviews = [...reviews, newReview];
+    setReviews(updatedReviews);
+    localStorage.setItem('reviews', JSON.stringify(updatedReviews));
+
+    // Pastrimi i formës pas dërgimit
+    setUsername('');
+    setContent('');
+    setRating('');
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Emri i Përdoruesit:</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+    <div>
+      <h2>Here you can give your feedback</h2>
+
+      <form className="review-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Emri i Përdoruesit:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Shkruaj emrin"
+          />
+        </div>
+        <div className="form-group">
+          <label>Review:</label>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Shkruaj review-in tuaj"
+          />
+        </div>
+        <div className="form-group">
+          <label>Vlerësimi:</label>
+          <input
+            type="number"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+            min="1"
+            max="5"
+          />
+        </div>
+        <button type="submit" className="submit-btn">Dërgo Review</button>
+      </form>
+
+      {/* Shfaqja e review-eve të ruajtura */}
+      <div className="reviews-list">
+        <h3>Reviewet që keni dhënë:</h3>
+        {reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <div key={index} className="review-item">
+              <p><strong>{review.username}</strong> (Vlerësimi: {review.rating})</p>
+              <p>{review.content}</p>
+            </div>
+          ))
+        ) : (
+          <p>Nuk ka asnjë review për momentin.</p>
+        )}
       </div>
-      <div>
-        <label>Review:</label>
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Vlerësimi:</label>
-        <input
-          type="number"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-          min="1"
-          max="5"
-        />
-      </div>
-      <button type="submit">Dërgo Review</button>
-    </form>
+    </div>
   );
 }
 
